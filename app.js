@@ -1,23 +1,52 @@
 const express = require( 'express')
+const expressLayouts = require('express-ejs-layouts')
 const app = express()
 const port = 3000
 
 
+//Gunakan EJS
+app.set('view engine', 'ejs')
+app.use(expressLayouts)
+
 app.get('/', (req, res) => {
-  // res.send('Hello World!')
-  res.json({
-    nama: "Apriyanto",
-    email: "apri@gmail.com",
-    noHp: "0812312312312"
+  const mahasiswa = [
+    {
+      nama: "Apri",
+      no: "08123213"
+    },
+    {
+      nama: "Yanto",
+      no: "08123213"
+    },
+    {
+      nama: "Karim",
+      no: "08123213"
+    }
+  
+  ]
+  res.render('index', {
+    title: 'Halaman Index',
+    layout: 'layouts/main-layout',
+    mahasiswa,
+    nama: 'Index'
   })
+  // res.sendFile('./index.html', {root: __dirname})
 })
 
 app.get('/about', (req, res) => {
-  res.send('Halaman About!')
+  res.render('about', {
+    title: 'Halaman About',
+    layout: 'layouts/main-layout'
+  })
+  // res.sendFile('./about.html', {root: __dirname})
 })
 
 app.get('/contact', (req, res) => {
-  res.send('Halaman Contact!')
+  res.render('contact', {
+    title: 'Halaman Contact',
+    layout: 'layouts/main-layout'
+  })
+  // res.sendFile('./contact.html', {root: __dirname})
 })
 
 app.get('/product/:id', (req, res) => {
